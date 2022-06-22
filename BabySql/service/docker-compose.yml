@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  db:
+    build:
+      context: ./db
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2.0
+    restart: always
+    ports:
+      - 5004:80
+    links:
+      - db
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
+
+  web:
+    build:
+      context: ./web
+    restart: always
+    environment:
+      - DBHOST=db
+      - DBUSER=baby
+      - DBPASS=sql
+      - DBSCHEMA=babysql
+    ports:
+      - 5003:80
+    depends_on:
+      - db
+
+  # Do not tamper this!
+  flag_manager:
+    build:
+      context: ./flag_manager
+    restart: always
+    environment:
+      - DBHOST=db
+      - DBUSER=baby
+      - DBPASS=sql
+      - DBSCHEMA=babysql
+    ports:
+      - 5005:5005
+    depends_on:
+      - db
