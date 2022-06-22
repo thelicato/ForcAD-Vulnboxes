@@ -6,13 +6,14 @@ import json
 import hashlib
 from inputimeout import inputimeout, TimeoutOccurred
 
+DATA_FOLDER = "/data"
 TIMEOUT = 300
 BANNER = "Welcome to Hash Me Please!"
 BYEBYE_MSG = "Unfortunately the hash is not correct. Byeeee!"
 
 def get_last_flag():
     try:
-        with open('flags.json') as json_file:
+        with open(f"{DATA_FOLDER}/flags.json") as json_file:
             data = json.load(json_file)
             return data[-1]['flag']
     except:

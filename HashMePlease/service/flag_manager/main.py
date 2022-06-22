@@ -12,7 +12,7 @@ def main():
 	flags.Singleton()
 
 	# Load server
-	print(f"HashMePlease running on port {PORT}")
+	print(f"HashMePlease Flag Manager running on port {PORT}")
 	app.run(host='0.0.0.0', port=PORT)
 
 

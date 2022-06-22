@@ -1,5 +1,6 @@
-import datetime
 import json
+
+DATA_FOLDER = "/data"
 
 class Singleton():
     flags = []
@@ -18,5 +19,5 @@ class Singleton():
     def set_flag(self, id, vuln, flag):
         new_flag = {'id': id, 'vuln': vuln, 'flag': flag}
         self.flags.append(new_flag)
-        with open('flags.json', 'w') as outfile:
+        with open(f"{DATA_FOLDER}/flags.json", 'w') as outfile:
             json.dump(self.flags, outfile, sort_keys=True, indent=4, separators=(',', ': '))
