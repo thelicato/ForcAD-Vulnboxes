@@ -4,6 +4,8 @@ services:
   db:
     build:
       context: ./db
+    ports:
+      - 3306:3306
     restart: always
 
   phpmyadmin:
@@ -29,6 +31,8 @@ services:
       - DBUSER=baby
       - DBPASS=sql
       - DBSCHEMA=babysql
+    links:
+      - db
     ports:
       - 5003:80
     depends_on:

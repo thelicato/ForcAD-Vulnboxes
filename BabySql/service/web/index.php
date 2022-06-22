@@ -10,8 +10,13 @@
         $username = getenv('DBUSER');
         $password = getenv('DBPASS');
         $dbschema = getenv('DBSCHEMA');
-        $conn = new mysqli($servername, $username, $password, $dbschema);
+        
+        $conn = new mysqli($servername, $username, $password, $dbschema, 3306);
        
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
@@ -21,44 +26,17 @@
             return false;
         }
     }
-    function check_security($string){
-        # characters allowlist. We allow these characters because they can be used in passwords
-        $allowlist = "/[^A-z0-9,.\ =+\-?!\\\\]/";
-        
-        if(preg_match($allowlist, $string) || is_array($string)){
 
-           return false;
-        };
-        
-        $words = explode(' ', $string);
-        
-        # It's better remove these dangerous words, we don't want another little bobby tables
-        $words_blocklist = [
-            "SELECT", "DROP", "FLAG", "OR", "AND", "UNION", "INSERT", "INFORMATION_SCHEMA", "--" 
-        ];
+    if(isset($_POST['password'])){
+        #$password = addslashes($_POST['password']);
+        $password = $_POST['password'];
 
-        for($i=0; $i < count($words); $i++){
-            $w = strtoupper($words[$i]);
-            
-            if(in_array($w, $words_blocklist)){
-                unset($words[$i]);
-            }
+        $query = "SELECT * FROM users WHERE pwd=('$password') AND username=('admin')";
+
+        if (preg_match('/INSERT|UPDATE|DELETE|CREATE|ALTER|DROP/i', $query)) {
+            die("Sorry! You cannot do that.");
         }
-        
-        return implode(' ', $words);
-    }
-    
 
-    $name = False;
-    if(isset($_POST['username']) && isset($_POST['password'])){
-        $username = check_security($_POST['username']);
-        $password = check_security($_POST['password']);
-
-        if($username === false || $password == false){
-            die('You are not allowed to use those characters');
-        }
-        
-        $query = "SELECT username FROM users WHERE username='$username' AND password='/*$password*/' /*'$username' logged in*/"; 
         $res = do_query($query);
        
         if(isset($res['username'])){
@@ -100,7 +78,6 @@
     <div class="container">
         <div class="row">
         <form class="form form-inline" method='POST'>                       
-            <input class="form-control" name='username' class='form-control' type='text' value='' placeholder='Username'>
             <input class="form-control" name='password' class='form-control' type='password' value='' placeholder='Password'>
             <input class="form-control btn btn-default" name="submit" value='Go' type='submit'>
         </form>

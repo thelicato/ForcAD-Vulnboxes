@@ -2,7 +2,7 @@ import flask
 import flags
 from api import rest_api
 
-PORT = 5002
+PORT = 5003
 
 def main():
 	app = flask.Flask(__name__)
@@ -12,7 +12,7 @@ def main():
 	flags.Singleton()
 
 	# Load server
-	print(f"HashMePlease running on port {PORT}")
+	print(f"BabySql Flag Manager running on port {PORT}")
 	app.run(host='0.0.0.0', port=PORT)
 
 
