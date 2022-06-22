@@ -9,13 +9,13 @@ class CheckMachine:
         self.checker = checker
 
     def ping(self):
-        r = requests.get(f'http://{self.checker.host}:{PORT}/ping/', timeout=2)
+        r = requests.get(f'http://{self.checker.host}:{PORT}/ping', timeout=2)
         self.checker.check_response(r, 'Check failed')
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         r = requests.post(
-            f'http://{self.checker.host}:{PORT}/put/',
+            f'http://{self.checker.host}:{PORT}/put',
             json={
                 'id': new_id,
                 'vuln': vuln,
@@ -29,7 +29,7 @@ class CheckMachine:
 
     def get_flag(self, flag_id, vuln):
         r = requests.get(
-            f'http://{self.checker.host}:{PORT}/get/',
+            f'http://{self.checker.host}:{PORT}/get',
             params={
                 'id': flag_id,
                 'vuln': vuln,
@@ -37,7 +37,7 @@ class CheckMachine:
             timeout=2,
         )
         self.checker.check_response(r, 'Could not get flag')
-        data = self.checker.get_json(r, 'Invalid response from /get/')
+        data = self.checker.get_json(r, 'Invalid response from /get')
         self.checker.assert_in(
             'flag', data,
             'Could not get flag',
