@@ -2,7 +2,7 @@ FROM alpine/socat:1.7.4.3-r0
 
 WORKDIR /usr/src/app
 
-COPY server.py requirements.txt ./
+COPY hashme.py requirements.txt ./
 RUN apk update && apk add python3 py3-pip && pip install -r requirements.txt
 EXPOSE 9600
 

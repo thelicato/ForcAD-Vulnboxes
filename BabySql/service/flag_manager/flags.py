@@ -28,13 +28,16 @@ class Singleton():
         self.flags.append(new_flag)
         with open('flags.json', 'w') as outfile:
             json.dump(self.flags, outfile, sort_keys=True, indent=4, separators=(',', ': '))
-        User.update(pwd=flag).where(User.username == "admin")
+        database.connect()
+        query = Users.update({Users.pwd:flag}).where(Users.username == "admin")
+        query.execute()
+        database.close()
 
 class BaseModel(peewee.Model):
     class Meta:
         database = database
 
-class User(BaseModel):
+class Users(BaseModel):
     id = peewee.IntegerField(unique=True)
     username = peewee.CharField()
     pwd = peewee.CharField()

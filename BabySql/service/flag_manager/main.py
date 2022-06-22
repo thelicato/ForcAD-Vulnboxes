@@ -2,7 +2,7 @@ import flask
 import flags
 from api import rest_api
 
-PORT = 5003
+PORT = 5005
 
 def main():
 	app = flask.Flask(__name__)

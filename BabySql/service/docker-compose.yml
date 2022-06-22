@@ -43,6 +43,8 @@ services:
     build:
       context: ./flag_manager
     restart: always
+    links:
+      - db
     environment:
       - DBHOST=db
       - DBUSER=baby
