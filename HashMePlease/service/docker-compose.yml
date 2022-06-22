@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: ./flask.Dockerfile
+    ports:
+      - "5002:5002"
+  netcat:
+    build:
+      context: .
+      dockerfile: ./netcat.Dockerfile
+    ports:
+      - "9600:9600"
