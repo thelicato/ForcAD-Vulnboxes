@@ -1,4 +1,4 @@
-FROM alpine/socat:1.7.4.3-r0
+FROM alpine/socat:1.7.4.4
 
 WORKDIR /usr/src/app
 
