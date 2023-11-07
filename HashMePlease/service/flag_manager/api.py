@@ -13,7 +13,9 @@ def get_flag():
         args = request.args
         id = args['id']
         vuln = args['vuln']
+        print(f"Looking for flag with id '{id}' and vuln '{vuln}'")
         flag = flags.Singleton().get_flag(id, vuln)
+        print(f"Flag found: {flag}")
         return make_response(jsonify({'flag': flag}))
     except Exception as e:
         return make_response(str(e))
@@ -25,6 +27,7 @@ def set_flag():
         id = body['id']
         vuln = body['vuln']
         flag = body['flag']
+        print(f"Setting flag with id '{id}' - vuln '{vuln}' - value '{flag}'")
         flags.Singleton().set_flag(id, vuln, flag)
         return make_response('Flag correctly set')
     except Exception as e:
