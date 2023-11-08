@@ -21,7 +21,7 @@ class CheckMachine:
 
     def ping(self):
         try:
-            conn = remote(self.checker.host, port)
+            conn = remote(self.checker.host, PORT)
             conn.recvuntil(b'>')
             conn.close()
         except Exception as e:
@@ -30,7 +30,7 @@ class CheckMachine:
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         try:
-            conn = remote(self.checker.host, port)
+            conn = remote(self.checker.host, PORT)
             conn.recvuntil(b'>')
             conn.sendline(b'2')
             conn.recvuntil(b'>')
@@ -54,7 +54,7 @@ class CheckMachine:
 
     def get_flag(self, flag_id, vuln):
         try:
-            conn = remote(self.checker.host, port)
+            conn = remote(self.checker.host, PORT)
             conn.recvuntil(b'>')
             conn.sendline(b'2')
             conn.recvuntil(b'>')
