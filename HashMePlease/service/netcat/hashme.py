@@ -87,7 +87,7 @@ def handle():
     if ch == 1:
         hash_me()
     if ch == 2:
-        hash_me()
+        manage()
     else:
         sys.exit(1)
 

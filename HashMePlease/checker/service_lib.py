@@ -44,6 +44,7 @@ class CheckMachine:
             conn.recvuntil(b'Flag:')
             conn.sendline(flag.encode('utf-8'))
             received_text = conn.recvline().strip()
+            conn.close()
             if not "Flag correctly set" in received_text:  
                 raise Exception('Unable to set flag')
             return new_id
@@ -64,7 +65,8 @@ class CheckMachine:
             conn.sendline(flag_id.encode('utf-8'))
             conn.recvuntil(b'Vuln:')
             conn.sendline(vuln.encode('utf-8'))
-            received_text = conn.recvline().strip()
+            data = conn.recvline().strip()
+            conn.close()
             self.checker.assert_in(
                 'flag', data,
                 'Could not get flag',
