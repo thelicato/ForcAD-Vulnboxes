@@ -29,6 +29,7 @@ class CheckMachine:
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
+        print(f"Put flag with ID: '{new_id}' - Vuln: '{vuln}' - Value: '{flag}' on host {self.checker.host}")
         try:
             conn = remote(self.checker.host, port)
             conn.recvuntil(b'>')
@@ -53,6 +54,7 @@ class CheckMachine:
         
 
     def get_flag(self, flag_id, vuln):
+        print(f"Get flag with ID: '{flag_id}' - Vuln: '{vuln}' from host {self.checker.host}")
         try:
             conn = remote(self.checker.host, port)
             conn.recvuntil(b'>')
