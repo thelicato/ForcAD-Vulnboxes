@@ -72,6 +72,6 @@ class CheckMachine:
                 'Could not get flag',
                 status=Status.CORRUPT,
             )
-            return data
+            return received_text
         except Exception as e:
             self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to get flag")
