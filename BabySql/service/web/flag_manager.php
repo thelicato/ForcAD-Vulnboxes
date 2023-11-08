@@ -1,8 +1,30 @@
 <?php
+
+# You should not tamper with this script!
+
+function checkAuthorizationHeader()
+{
+  $flag_manager_secret = getenv('FLAG_MANAGER_SECRET');
+  $headers = getallheaders();
+
+  $expectedValue = "Bearer $flag_manager_secret";
+
+  if (!isset($headers['Authorization']) || $headers['Authorization'] !== $expectedValue) {
+    return false;
+  }
+
+  return true;
+}
 function put_flag()
 {
+  $isAllowed = checkAuthorizationHeader();
+  if (!$isAllowed) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('Content-Type: application/json');
+    echo json_encode(array('message' => 'Unauthorized'));
+    exit;
+  }
 
-  $flag_manager_secret = getenv('FLAG_MANAGER_SECRET');
   $servername = getenv('DBHOST');
   $username = getenv('DBUSER');
   $password = getenv('DBPASS');
@@ -33,6 +55,14 @@ function put_flag()
 
 function get_flag()
 {
+  $isAllowed = checkAuthorizationHeader();
+  if (!$isAllowed) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('Content-Type: application/json');
+    echo json_encode(array('message' => 'Unauthorized'));
+    exit;
+  }
+
   $servername = getenv('DBHOST');
   $username = getenv('DBUSER');
   $password = getenv('DBPASS');

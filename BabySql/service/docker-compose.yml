@@ -26,6 +26,8 @@ services:
     build:
       context: ./web
     restart: always
+    env_file:
+      - .env
     environment:
       - DBHOST=db
       - DBUSER=baby
@@ -35,22 +37,5 @@ services:
       - db
     ports:
       - 5003:80
-    depends_on:
-      - db
-
-  # Do not tamper this!
-  flag_manager:
-    build:
-      context: ./flag_manager
-    restart: always
-    links:
-      - db
-    environment:
-      - DBHOST=db
-      - DBUSER=baby
-      - DBPASS=sql
-      - DBSCHEMA=babysql
-    ports:
-      - 5005:5005
     depends_on:
       - db
