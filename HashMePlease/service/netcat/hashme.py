@@ -61,6 +61,8 @@ def put_flag():
         new_flag = {'id': id, 'vuln': vuln, 'flag': flag}
         current_flags.append(new_flag)
         json.dump(current_flags, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+    
+    print("Flag correctly set!")
 
 def manage():
     print("1. Get flag")
