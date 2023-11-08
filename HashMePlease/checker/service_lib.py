@@ -24,8 +24,8 @@ class CheckMachine:
             conn = remote(self.checker.host, port)
             conn.recvuntil(b'>')
             conn.close()
-        except:
-            self.checker.cquit(status.Status.DOWN, "Unable to connect", "Unable to connect")
+        except Exception as e:
+            self.checker.cquit(status.Status.DOWN, str(e), "Unable to connect")
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
@@ -48,8 +48,8 @@ class CheckMachine:
             if not "Flag correctly set" in received_text:  
                 raise Exception('Unable to set flag')
             return new_id
-        except:
-            self.checker.cquit(status.Status.CORRUPT, "Unable to set flag", "Unable to set flag")
+        except Exception as e:
+            self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to set flag")
         
 
     def get_flag(self, flag_id, vuln):
@@ -73,5 +73,5 @@ class CheckMachine:
                 status=Status.CORRUPT,
             )
             return data
-        except:
-            self.checker.cquit(status.Status.CORRUPT, "Unable to get flag", "Unable to get flag")
+        except Exception as e:
+            self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to get flag")

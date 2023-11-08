@@ -36,9 +36,13 @@ function put_flag()
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $flag_id = $_POST["id"];
-  $flag_vuln = $_POST["vuln"];
-  $flag_value = $_POST["flag"];
+  $json = file_get_contents('php://input');
+  // Converts it into a PHP object 
+  $data = json_decode($json, true);
+
+  $flag_id = $data["id"];
+  $flag_vuln = $data["vuln"];
+  $flag_value = $data["flag"];
 
   # Insert query in flags table
   $insertQuery = "INSERT INTO flags VALUES ('$flag_id', '$flag_vuln', '$flag_value')";
