@@ -1,3 +1,4 @@
+import os
 import requests
 import yaml
 from checklib import *
@@ -9,7 +10,8 @@ class CheckMachine:
     def __init__(self, checker):
         self.checker = checker
         self.token = ''
-        with open("config.yml", "r") as stream:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(f"{dir_path}/config.yml", "r") as stream:
             try:
                 config = yaml.safe_load(stream)
                 self.token = config[checker.host]

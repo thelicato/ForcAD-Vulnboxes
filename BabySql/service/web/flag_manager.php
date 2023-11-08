@@ -2,7 +2,7 @@
 
 # You should not tamper with this script!
 
-function checkAuthorizationHeader()
+function check_authorization_header()
 {
   $flag_manager_secret = getenv('FLAG_MANAGER_SECRET');
   $headers = getallheaders();
@@ -17,7 +17,7 @@ function checkAuthorizationHeader()
 }
 function put_flag()
 {
-  $isAllowed = checkAuthorizationHeader();
+  $isAllowed = check_authorization_header();
   if (!$isAllowed) {
     header('HTTP/1.1 401 Unauthorized');
     header('Content-Type: application/json');
@@ -55,7 +55,7 @@ function put_flag()
 
 function get_flag()
 {
-  $isAllowed = checkAuthorizationHeader();
+  $isAllowed = check_authorization_header();
   if (!$isAllowed) {
     header('HTTP/1.1 401 Unauthorized');
     header('Content-Type: application/json');

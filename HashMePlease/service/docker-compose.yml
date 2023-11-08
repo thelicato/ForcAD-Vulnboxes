@@ -4,16 +4,6 @@ services:
     build:
       context: ./netcat
     ports:
-      - "9600:9600"
-    volumes:
-    - ./:/data
-  
-  # Do not tamper with this!
-  flag_manager:
-    build:
-      context: ./flag_manager
-    restart: always
-    ports:
       - "5002:5002"
     volumes:
-      - ./:/data
+    - ./:/data
