@@ -24,7 +24,6 @@ class CheckMachine:
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
-        print(f"Put flag with ID: '{new_id}' - Vuln: '{vuln}' - Value: '{flag}' on host {self.checker.host}")
         r = requests.post(
             f'http://{self.checker.host}:{PORT}/flag_manager.php',
             headers={
@@ -42,7 +41,6 @@ class CheckMachine:
         return new_id
 
     def get_flag(self, flag_id, vuln):
-        print(f"Get flag with ID: '{flag_id}' - Vuln: '{vuln}' from host {self.checker.host}")
         r = requests.get(
             f'http://{self.checker.host}:{PORT}/flag_manager.php',
             headers={
