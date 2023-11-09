@@ -4,6 +4,8 @@ version = "0.1.0"
 description = ""
 authors = ["Angelo Delicato <thelicato@duck.com>"]
 readme = "README.md"
+include = [{ path = "bobb/ui/**/*", format = ["sdist", "wheel"] }]
+packages = [{ include = "app" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -22,3 +24,6 @@ pylibmc = "^1.6.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+bobb = 'server:main'

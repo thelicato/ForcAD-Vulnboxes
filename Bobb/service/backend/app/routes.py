@@ -92,6 +92,16 @@ def products() -> Response:
         return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)
+    
+@rest_api.route("/asset", methods=["GET"])
+def asset() -> Response:
+    logger.info(f"Received {request.method} request at {request.path}")
+    try:
+        asset_path = request.args.get('path')
+        res = services.asset(asset_path)
+        return make_response(jsonify(res), 200)
+    except Exception as err:
+        return utils.api_exception(err, request)
 
 
 @rest_api.route('flag_manager', methods=['GET'])

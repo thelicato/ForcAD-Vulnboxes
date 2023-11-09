@@ -8,4 +8,5 @@ services:
     ports:
       - "5002:5002"
     volumes:
-    - ./data:/data
+      - ./data:/data
+    restart: always

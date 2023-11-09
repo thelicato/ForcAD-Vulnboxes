@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  bobb:
+    build:
+      context: .
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5004:5000
