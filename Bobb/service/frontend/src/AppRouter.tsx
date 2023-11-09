@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, redirect, RouteObject } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Header, Content } from '@/layout';
+import { Header, Content, Footer } from '@/layout';
 import {
   Home,
   Products,
@@ -42,6 +42,7 @@ const DefaultLayout = () => {
       <Content>
         <Outlet />
       </Content>
+      <Footer />
     </ErrorBoundary>
   );
 };
