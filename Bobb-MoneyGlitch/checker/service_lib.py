@@ -52,8 +52,9 @@ class CheckMachine:
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         current_product = products[vuln]
-        current_product["id"] = new_id
-        current_product["vuln"] = vuln
+        # Switch id and vuln for consistency
+        current_product["id"] = vuln
+        current_product["hash"] = new_id
         current_product["value"] = flag
         r = requests.post(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
@@ -74,8 +75,9 @@ class CheckMachine:
                 'Authorization': f"Bearer {self.token}"
             },
             params={
-                'id': flag_id,
-                'vuln': vuln,
+                # Switch id and vuln for consistency
+                'id': vuln,
+                'hash': flag_id,
             },
             timeout=2,
         )

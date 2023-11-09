@@ -27,6 +27,7 @@ class Coupon(BaseModel):
 
 class Product(BaseModel):
     id = peewee.CharField(primary_key=True, default=get_uuid())
+    hash: peewee.CharField()
     name = peewee.CharField()
     description = peewee.CharField()
     value = peewee.CharField()

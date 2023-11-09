@@ -76,5 +76,24 @@ def buy(user_id: int, product_id):
     # Subtract the credit and obtain the product
     User.update(credit=user.credit-product.price).where(User.id == user.id)
 
-    res = {"name": product.name, "value": product.value}
+    res = {"id": product.id, "name": product.name, "value": product.value}
+    return res
+
+def get_flag(product_id: str, product_vuln: str):
+    product_exists = Product.select().where(Product.id == product_id and Product.vuln == product_vuln).exists()
+    if not product_exists:
+        raise Exception('Invalid product')
+
+    product = Product.get(Product.id == product_id and Product.vuln == product_vuln)
+    res = {"id": product.id, "name": product.name, "value": product.value}
+    return res
+
+def put_flag(product):
+    product_exists = Product.select().where(Product.id == product['id']).exists()
+    if not product_exists:
+        Product.create(id=product['id'], name=product['name'], description=product['description'], value=product['value'], price=product['price'], image=product['image'], hash=product['hash'])
+    else:
+        Product.update(value=product['value'], hash=product['hash']).where(Product.id == product['id'])
+
+    res = {"message": "Flag correctly set"}
     return res
