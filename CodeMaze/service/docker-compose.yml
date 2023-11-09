@@ -12,7 +12,7 @@ services:
     image: phpmyadmin/phpmyadmin:5.2.0
     restart: always
     ports:
-      - 5004:80
+      - 8000:80
     links:
       - db
     environment:
@@ -30,9 +30,9 @@ services:
       - .env
     environment:
       - DBHOST=db
-      - DBUSER=baby
-      - DBPASS=sql
-      - DBSCHEMA=babysql
+      - DBUSER=code
+      - DBPASS=maze
+      - DBSCHEMA=codemaze
     links:
       - db
     ports:

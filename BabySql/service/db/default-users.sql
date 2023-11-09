@@ -1,2 +1,0 @@
-CREATE TABLE `babysql`.`users` (`id` INT NOT NULL , `username` VARCHAR(255) NOT NULL , `pwd` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
-CREATE TABLE `babysql`.`flags` (`id` VARCHAR(255) NOT NULL , `vuln` VARCHAR(255) NOT NULL , `flag` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;

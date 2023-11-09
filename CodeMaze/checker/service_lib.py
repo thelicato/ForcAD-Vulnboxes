@@ -19,8 +19,10 @@ class CheckMachine:
                 print(exc)
 
     def ping(self):
-        r = requests.get(f'http://{self.checker.host}:{PORT}', timeout=2)
-        self.checker.check_response(r, 'Check failed')
+        r_index = requests.get(f'http://{self.checker.host}:{PORT}', timeout=2)
+        self.checker.check_response(r_index, 'Check failed')
+        r_user = requests.get(f'http://{self.checker.host}:{PORT}/user.php', timeout=2)
+        self.checker.check_response(r_user, 'Check failed')
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)

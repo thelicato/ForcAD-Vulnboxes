@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Author: Angelo Delicato
-# Description: Just a checker for the BabySql ForcAD Vulnbox
+# Description: Just a checker for the CodeMaze ForcAD Vulnbox
 # Note: Use this file inside the checker folder in ForcAD
 
 import sys

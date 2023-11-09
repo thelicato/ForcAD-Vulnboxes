@@ -1,0 +1,2 @@
+CREATE TABLE `codemaze`.`users` (`id` INT NOT NULL , `username` VARCHAR(255) NOT NULL , `pwd` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
+CREATE TABLE `codemaze`.`flags` (`id` VARCHAR(255) NOT NULL , `vuln` VARCHAR(255) NOT NULL , `flag` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
