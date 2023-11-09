@@ -18,6 +18,10 @@ export const Products = () => {
   useEffect(() => {
     getProducts()
   }, [])
+
+  if (products.length === 0) {
+    return <div className="container text-center m-auto"><h1 className="font-Jost font-semibold text-6xl my-8">There are no products!</h1></div>
+  }
   
   return <>{products.map((p: IProduct, key: number) => {
     return (

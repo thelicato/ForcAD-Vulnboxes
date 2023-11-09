@@ -58,7 +58,6 @@ def login() -> Response:
     
 
 @rest_api.route("/logout", methods=["POST"])
-@validate_json
 def logout() -> Response:
     logger.info(f"Received {request.method} request at {request.path}")
     try:

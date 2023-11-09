@@ -22,11 +22,11 @@ export const Signup = () => {
   const register = async (inputData: registerInputs) => {
     try {
       setIsLoading(true);
-      const loginData: ILoginOrRegisterReq = {
+      const signupData: ILoginOrRegisterReq = {
         username: inputData.username,
         password: inputData.password,
       };
-      await RESTManagerInstance.register(loginData);
+      await RESTManagerInstance.register(signupData);
       await refreshStatus();
       await sleep(500); // Just to show the spinner
       setIsLoading(false);
@@ -69,9 +69,9 @@ export const Signup = () => {
               <button
                 type='submit'
                 disabled={!registerForm.formState.isValid}
-                className='flex w-full items-center justify-center disabled:bg-gray-500  h-12  p-2 rounded-md bg-cPrimary hover:bg-cSecondary text-white'
+                className='flex w-full items-center justify-center disabled:bg-gray-500  h-12  p-2 rounded-md bg-cGreen text-white'
               >
-                Login
+                Signup
               </button>
             </form>
           </div>

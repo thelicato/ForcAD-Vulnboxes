@@ -24,7 +24,7 @@ export const Home = () => {
         </div>
       </div>
       <div className='flex flex-col items-center my-6'>
-        <button className='py-2 px-4 bg-cGreen rounded-full text-slate-50 font-semibold text-center'>Esplora i locali attorno a te</button>
+        <a href="https://tinyurl.com/4y6jvpas"><button className='py-2 px-4 bg-cGreen rounded-full text-slate-50 font-semibold text-center'>Esplora i locali attorno a te</button></a>
       </div>
     </div>
   )

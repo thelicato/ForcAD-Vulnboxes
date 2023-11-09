@@ -1,5 +1,4 @@
 import peewee
-from app.utils import get_uuid
 
 database = peewee.SqliteDatabase('db.sqlite')  # Defer initialization
 
@@ -10,7 +9,7 @@ class BaseModel(peewee.Model):
 
 
 class User(BaseModel):
-    id = peewee.CharField(primary_key=True, default=get_uuid())
+    id = peewee.CharField(primary_key=True)
     username = peewee.CharField(unique=True)
     password = peewee.CharField()
     credit = peewee.IntegerField(default=0)
@@ -18,7 +17,7 @@ class User(BaseModel):
 
 
 class Coupon(BaseModel):
-    id = peewee.CharField(primary_key=True, default=get_uuid())
+    id = peewee.CharField(primary_key=True)
     value = peewee.IntegerField(default=10)
     used = peewee.BooleanField(default=False)
     user = peewee.ForeignKeyField(User, backref='coupons')
@@ -26,7 +25,7 @@ class Coupon(BaseModel):
 
 
 class Product(BaseModel):
-    id = peewee.CharField(primary_key=True, default=get_uuid())
+    id = peewee.CharField(primary_key=True)
     name = peewee.CharField()
     description = peewee.CharField()
     value = peewee.CharField()

@@ -69,7 +69,7 @@ export const Login = () => {
               <button
                 type='submit'
                 disabled={!loginForm.formState.isValid}
-                className='flex w-full items-center justify-center disabled:bg-gray-500  h-12  p-2 rounded-md bg-cPrimary hover:bg-cSecondary text-white'
+                className='flex w-full items-center justify-center disabled:bg-gray-500  h-12  p-2 rounded-md bg-cGreen text-white'
               >
                 Login
               </button>

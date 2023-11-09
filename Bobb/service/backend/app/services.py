@@ -1,5 +1,6 @@
 from app.db import User, Coupon, Product
 from app.extensions import bcrypt
+from app.utils import get_uuid
 
 
 def me(user_id: int):
@@ -18,10 +19,10 @@ def register(username: str, password: str):
         raise Exception('User already exists')
 
     hashed_password = bcrypt.generate_password_hash(password)
-    new_user = User.create(username=username, password=hashed_password)
+    new_user = User.create(id=get_uuid(), username=username, password=hashed_password)
 
     # Generate a coupon associated with this user
-    Coupon.create(user=new_user)
+    Coupon.create(id=get_uuid(), user=new_user)
 
     res = {"message": "User correctly created"}
     return res
