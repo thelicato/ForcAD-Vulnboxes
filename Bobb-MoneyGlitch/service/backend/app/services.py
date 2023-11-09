@@ -42,6 +42,10 @@ def login(username: str, password: str):
            "credit": user.credit, "coupons": coupons}
     return res
 
+def products():
+    products = Product.select()
+    res = {'products': [{"id": p.id, "name": p.name, "description": p.description, "image": p.image, "price": p.price} for p in products]}
+    return res
 
 def redeem(user_id: int, coupon_id: str):
     coupon_exists = Coupon.select().where(Coupon.id == coupon_id).exists()
@@ -79,12 +83,12 @@ def buy(user_id: int, product_id):
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
 
-def get_flag(product_id: str, product_vuln: str):
-    product_exists = Product.select().where(Product.id == product_id and Product.vuln == product_vuln).exists()
+def get_flag(product_id: str, product_hash: str):
+    product_exists = Product.select().where(Product.id == product_id and Product.vuln == product_hash).exists()
     if not product_exists:
         raise Exception('Invalid product')
 
-    product = Product.get(Product.id == product_id and Product.vuln == product_vuln)
+    product = Product.get(Product.id == product_id and Product.vuln == product_hash)
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
 

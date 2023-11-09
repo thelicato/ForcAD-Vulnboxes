@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, make_response, request, session, Response
 from app.middlewares import auth_check, validate_json, validate_schema, flag_manager_check
-from app.schema import login_or_register_schema, redeem_schema
+from app.schema import login_or_register_schema, redeem_schema, put_flag_schema
 import app.logger as logger
 import app.services as services
 import app.utils as utils
@@ -71,6 +71,16 @@ def redeem() -> Response:
     except Exception as err:
         return utils.api_exception(err, request)
 
+@rest_api.route("/products", methods=["GET"])
+@auth_check
+def products() -> Response:
+    logger.info(f"Received {request.method} request at {request.path}")
+    try:
+        res = services.products()
+        return make_response(jsonify(res), 200)
+    except Exception as err:
+        return utils.api_exception(err, request)
+
 @rest_api.route('flag_manager', methods=['GET'])
 @flag_manager_check
 def get_flag() -> Response:
@@ -78,6 +88,19 @@ def get_flag() -> Response:
     try:
         product_id = request.args.get('id')
         product_hash = request.args.get('hash')
-        print("ciao")
+        res = services.get_flag(product_id, product_hash)
+        return make_response(jsonify(res), 200)
+    except Exception as err:
+        return utils.api_exception(err, request)
+    
+@rest_api.route('flag_manager', methods=['POST'])
+@flag_manager_check
+@validate_schema(put_flag_schema)
+def put_flag() -> Response:
+    logger.info(f"Received {request.method} request at {request.path}")
+    try:
+        json_data = request.get_json()
+        res = services.put_flag(json_data)
+        return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)
