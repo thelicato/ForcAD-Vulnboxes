@@ -2,7 +2,7 @@
  * Interfaces for requests
  */
 
-import { IUserStatus } from "@/types/ICommon";
+import { IProduct, IUserStatus } from "@/types/ICommon";
 
 export interface ILoginOrRegisterReq {
   username: string;
@@ -23,3 +23,7 @@ export interface IGenericRes {
 }
 
 export interface IStatusRes extends IUserStatus {};
+
+export interface IProductsRes {
+  products: IProduct[]
+}

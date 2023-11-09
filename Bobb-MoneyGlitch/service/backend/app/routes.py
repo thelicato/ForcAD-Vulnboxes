@@ -55,6 +55,18 @@ def login() -> Response:
         return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)
+    
+
+@rest_api.route("/logout", methods=["POST"])
+@validate_json
+def logout() -> Response:
+    logger.info(f"Received {request.method} request at {request.path}")
+    try:
+        session.pop('user_id')
+        res = {'message': 'Logout completed'}
+        return make_response(jsonify(res), 200)
+    except Exception as err:
+        return utils.api_exception(err, request)
 
 
 @rest_api.route("/redeem", methods=["POST"])
@@ -71,6 +83,7 @@ def redeem() -> Response:
     except Exception as err:
         return utils.api_exception(err, request)
 
+
 @rest_api.route("/products", methods=["GET"])
 @auth_check
 def products() -> Response:
@@ -80,6 +93,7 @@ def products() -> Response:
         return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)
+
 
 @rest_api.route('flag_manager', methods=['GET'])
 @flag_manager_check
@@ -92,7 +106,8 @@ def get_flag() -> Response:
         return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)
-    
+
+
 @rest_api.route('flag_manager', methods=['POST'])
 @flag_manager_check
 @validate_schema(put_flag_schema)

@@ -9,3 +9,17 @@ export interface IUserStatus {
   credit: number;
   coupons: ICoupon[]
 }
+
+export interface IProduct {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+}
+
+export interface IProductReveal {
+  id: string;
+  name: string;
+  value: string;
+}
