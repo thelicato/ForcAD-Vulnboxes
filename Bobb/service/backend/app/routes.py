@@ -5,7 +5,7 @@ import app.logger as logger
 import app.services as services
 import app.utils as utils
 
-rest_api = Blueprint("auth", __name__, url_prefix="/api")
+rest_api = Blueprint("api", __name__, url_prefix="/api")
 
 
 @rest_api.route("/status", methods=["GET"])

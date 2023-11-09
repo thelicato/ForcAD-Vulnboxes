@@ -6,7 +6,7 @@ interface IPublicRoutes {
 
 interface IPrivateRoutes {
   PRODUCTS_ROUTE: string;
-  REDEEM_ROUTE: string;
+  PROFILE_ROUTE: string;
 }
 
 export const PUBLIC_REACT_ROUTES: IPublicRoutes = {
@@ -17,5 +17,5 @@ export const PUBLIC_REACT_ROUTES: IPublicRoutes = {
 
 export const PRIVATE_REACT_ROUTES: IPrivateRoutes = {
   PRODUCTS_ROUTE: '/products',
-  REDEEM_ROUTE: '/redeem',
+  PROFILE_ROUTE: '/profile',
 };

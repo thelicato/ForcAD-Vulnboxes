@@ -16,7 +16,7 @@ const PUBLIC_LINKS: INavlink[] = [
 ]
 
 const PRIVATE_LINKS: INavlink[] = [
-  { name: 'Redeem', link:'/redeem' },
+  { name: 'Profile', link:'/profile' },
   { name: 'Products', link:'/products' },
 ]
 

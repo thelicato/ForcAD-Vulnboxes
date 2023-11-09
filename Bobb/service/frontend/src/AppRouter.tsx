@@ -4,7 +4,7 @@ import { Header, Content, Footer } from '@/layout';
 import {
   Home,
   Products,
-  Redeem,
+  Profile,
   Signup,
   Login,
   NoMatch,
@@ -85,8 +85,8 @@ const RouteObjects: RouteObject[] = [
         loader: async () => await routeLoader(PUBLIC_REACT_ROUTES.LOGIN_ROUTE),
       },
       {
-        path: removeSlash(PRIVATE_REACT_ROUTES.REDEEM_ROUTE),
-        element: <Redeem />,
+        path: removeSlash(PRIVATE_REACT_ROUTES.PROFILE_ROUTE),
+        element: <Profile />,
         loader: async () => await routeLoader(PUBLIC_REACT_ROUTES.LOGIN_ROUTE),
       },
     ],

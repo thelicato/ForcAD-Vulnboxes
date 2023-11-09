@@ -1,8 +1,10 @@
+import os
 # Flask modules
 from flask import Flask
 
 
 def create_app(debug: bool = False):
+    FLASK_ENV = os.environ.get("FLASK_ENV", 'development')
     # Create the Flask application instance
     app = Flask(__name__)
 
@@ -27,6 +29,11 @@ def create_app(debug: bool = False):
 
     # Register blueprints or routes
     from app.routes import rest_api
+
+    if FLASK_ENV == 'production':
+        print("Serving UI")
+        from app.ui import ui
+        app.register_blueprint(ui)
 
     app.register_blueprint(rest_api)
 

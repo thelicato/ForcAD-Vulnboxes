@@ -3,8 +3,7 @@ name = "backend"
 version = "0.1.0"
 description = ""
 authors = ["Angelo Delicato <thelicato@duck.com>"]
-readme = "README.md"
-include = [{ path = "bobb/ui/**/*", format = ["sdist", "wheel"] }]
+include = [{ path = "app/ui/**/*", format = ["sdist", "wheel"] }]
 packages = [{ include = "app" }]
 
 [tool.poetry.dependencies]
@@ -26,4 +25,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-bobb = 'server:main'
+bobb = 'app.server:main'

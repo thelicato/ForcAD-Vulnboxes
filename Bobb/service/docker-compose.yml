@@ -7,5 +7,7 @@ services:
     restart: always
     env_file:
       - .env
+    environment:
+      - FLASK_ENV=production
     ports:
       - 5004:5000

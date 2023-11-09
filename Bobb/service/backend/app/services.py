@@ -60,8 +60,8 @@ def redeem(user_id: int, coupon_id: str):
     user = User.get(User.id == user_id)
 
     # Add the credit and set the coupon as used
-    User.update(credit=user.credit+coupon.value).where(User.id == user.id)
-    Coupon.update(used=True).where(Coupon.id == coupon.id)
+    User.update(credit=user.credit+coupon.value).where(User.id == user.id).execute()
+    Coupon.update(used=True).where(Coupon.id == coupon.id).execute()
 
     res = {"message": "Coupon redeemed correctly"}
     return res
@@ -79,7 +79,7 @@ def buy(user_id: int, product_id):
         raise Exception("You don't have enough money to buy this product!")
 
     # Subtract the credit and obtain the product
-    User.update(credit=user.credit-product.price).where(User.id == user.id)
+    User.update(credit=user.credit-product.price).where(User.id == user.id).execute()
 
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
@@ -98,7 +98,7 @@ def put_flag(product):
     if not product_exists:
         Product.create(id=product['id'], name=product['name'], description=product['description'], value=product['value'], price=product['price'], image=product['image'], hash=product['hash'])
     else:
-        Product.update(value=product['value'], hash=product['hash']).where(Product.id == product['id'])
+        Product.update(value=product['value'], hash=product['hash']).where(Product.id == product['id']).execute()
 
     res = {"message": "Flag correctly set"}
     return res

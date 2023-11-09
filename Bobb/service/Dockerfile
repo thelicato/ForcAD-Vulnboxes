@@ -9,7 +9,7 @@ FROM python:3.11.6-slim-bullseye
 WORKDIR /app
 COPY backend ./
 # Copy frontend
-COPY --from=build-frontend /usr/src/app/dist ./bobb/ui
+COPY --from=build-frontend /usr/src/app/dist ./app/ui
 RUN pip install . && rm -rf ./**
 
 ENTRYPOINT ["bobb"]
