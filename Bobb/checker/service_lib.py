@@ -5,13 +5,18 @@ from checklib import *
 
 PORT = 5004
 
+dummy_product = {
+    "id": "0",
+    "hash": "nothing",
+    "value": "EHEHEH it is not so easy",
+    "name": "Flag",
+    "description": "This is the flag you were looking for!",
+    "price": 10,
+    "image": "link",
+},
+
 products = [
-    {
-        "name": "Flag",
-        "description": "This is the flag you were looking for!",
-        "price": 10,
-        "image": "link",
-    },
+
     {
         "name": "Pizza Pomodorino",
         "description": "This is the flag you were looking for!",
@@ -51,11 +56,20 @@ class CheckMachine:
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
-        current_product = products[vuln]
+        current_product = products[vuln]        
         # Switch id and vuln for consistency
         current_product["id"] = vuln
         current_product["hash"] = new_id
         current_product["value"] = flag
+        # Send dummy flag
+        requests.post(
+            f'http://{self.checker.host}:{PORT}/api/flag_manager',
+            headers={
+                'Authorization': f"Bearer {self.token}"
+            },
+            json=dummy_product,
+            timeout=2,
+        )
         r = requests.post(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
             headers={

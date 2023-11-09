@@ -5,7 +5,7 @@ import {
   Home,
   Products,
   Redeem,
-  Register,
+  Signup,
   Login,
   NoMatch,
   Error,
@@ -68,7 +68,7 @@ const RouteObjects: RouteObject[] = [
       },
       {
         path: removeSlash(PUBLIC_REACT_ROUTES.REGISTER_ROUTE),
-        element: <Register />,
+        element: <Signup />,
         loader: async () => {
           const isLoggedIn = await userLoader();
           if (isLoggedIn) {

@@ -12,7 +12,7 @@ interface IPrivateRoutes {
 export const PUBLIC_REACT_ROUTES: IPublicRoutes = {
   HOME_ROUTE: '/',
   LOGIN_ROUTE: '/login',
-  REGISTER_ROUTE: '/register',
+  REGISTER_ROUTE: '/signup',
 };
 
 export const PRIVATE_REACT_ROUTES: IPrivateRoutes = {

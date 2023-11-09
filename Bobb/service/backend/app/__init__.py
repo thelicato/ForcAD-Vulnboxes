@@ -16,7 +16,7 @@ def create_app(debug: bool = False):
     from app.extensions import cors, bcrypt, server_session
 
     server_session.init_app(app)
-    cors.init_app(app)
+    cors.init_app(app, resources={r"*": {"origins": "*"}}, support_credentials=True)
     bcrypt.init_app(app)
 
     # Import all models and Create database tables

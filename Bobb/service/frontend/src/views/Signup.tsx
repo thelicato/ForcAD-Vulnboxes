@@ -8,33 +8,33 @@ import { Loading, PasswordInput } from '@/components';
 import { sleep } from '@/utils/helpers';
 import { useBobb } from '@/context';
 
-type loginInputs = {
+type registerInputs = {
   username: string;
   password: string;
 };
 
-export const Login = () => {
+export const Signup = () => {
   const { refreshStatus } = useBobb();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const loginForm = useForm<loginInputs>();
+  const registerForm = useForm<registerInputs>();
 
-  const login = async (inputData: loginInputs) => {
+  const register = async (inputData: registerInputs) => {
     try {
       setIsLoading(true);
       const loginData: ILoginOrRegisterReq = {
         username: inputData.username,
         password: inputData.password,
       };
-      await RESTManagerInstance.login(loginData);
+      await RESTManagerInstance.register(loginData);
       await refreshStatus();
       await sleep(500); // Just to show the spinner
       setIsLoading(false);
-      toast.success('Login completed successfully');
+      toast.success('Signup completed successfully');
       await sleep(500); // Just to show the toast message
       navigate('/products');
     } catch (err) {
-      const errMsg = 'Errore during login';
+      const errMsg = 'Error during signup';
       await sleep(500); // Just to show the spinner
       setIsLoading(false);
       toast.error(errMsg);
@@ -53,22 +53,22 @@ export const Login = () => {
             <img src={''} className='mb-3 w-40' />
           </h1>
           <div className='card bg-white shadow-xl w-full mt-8 p-8'>
-            <form className='grid grid-cols-1 gap-5' onSubmit={loginForm.handleSubmit(login)}>
+            <form className='grid grid-cols-1 gap-5' onSubmit={registerForm.handleSubmit(register)}>
               <input
                 className='h-12 bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                 type='text'
                 placeholder='Username'
-                {...loginForm.register('username', { required: true })}
+                {...registerForm.register('username', { required: true })}
               />
               <PasswordInput
                 className='h-12 bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                 type='password'
                 placeholder='Password'
-                register={loginForm.register('password', { required: true })}
+                register={registerForm.register('password', { required: true })}
               />
               <button
                 type='submit'
-                disabled={!loginForm.formState.isValid}
+                disabled={!registerForm.formState.isValid}
                 className='flex w-full items-center justify-center disabled:bg-gray-500  h-12  p-2 rounded-md bg-cPrimary hover:bg-cSecondary text-white'
               >
                 Login

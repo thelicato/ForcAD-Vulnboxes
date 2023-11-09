@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import NoMatchImg from '@/assets/images/404.png';
+import NoMatchImg from '@/assets/404.png';
 
 export const NoMatch = () => {
   return (
