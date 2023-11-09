@@ -24,7 +24,7 @@
   if (isset($_GET['submit'])) {
     $name = $_GET['name'];
     // include and register Twig auto-loader
-    include 'vendor/twig/twig/lib/Twig/Autoloader.php';
+    include '../vendor/twig/twig/lib/Twig/Autoloader.php';
     Twig_Autoloader::register();
     try {
       // specify where to look for templates
