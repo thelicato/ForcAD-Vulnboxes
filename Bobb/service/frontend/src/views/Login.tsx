@@ -34,7 +34,7 @@ export const Login = () => {
       await sleep(500); // Just to show the toast message
       navigate('/products');
     } catch (err) {
-      const errMsg = 'Errore during login';
+      const errMsg = 'Error during login';
       await sleep(500); // Just to show the spinner
       setIsLoading(false);
       toast.error(errMsg);
@@ -47,11 +47,9 @@ export const Login = () => {
 
   return (
     <>
-      <div className='bg-cPrimary w-full h-full m-auto font-Jost'>
+      <div className='w-full h-full m-auto font-Jost'>
         <div className='flex flex-col m-auto justify-center items-center w-5/6 sm:w-3/6 lg:w-4/12 xl:w-3/12 2xl:w-1/6 h-full text-center'>
-          <h1 className='text-2xl select-none flex flex-col items-center justify-center gap-3'>
-            <img src={''} className='mb-3 w-40' />
-          </h1>
+          <h2 className="font-semibold font-Jost text-3xl">Login</h2>
           <div className='card bg-white shadow-xl w-full mt-8 p-8'>
             <form className='grid grid-cols-1 gap-5' onSubmit={loginForm.handleSubmit(login)}>
               <input

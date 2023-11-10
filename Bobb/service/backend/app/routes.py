@@ -134,6 +134,7 @@ def put_flag() -> Response:
     logger.info(f"Received {request.method} request at {request.path}")
     try:
         json_data = request.get_json()
+        logger.info(json_data)
         res = services.put_flag(json_data)
         return make_response(jsonify(res), 200)
     except Exception as err:
