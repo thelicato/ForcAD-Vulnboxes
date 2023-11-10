@@ -30,7 +30,7 @@ def register(username: str, password: str):
 
 def image(image_path: str):
     MAIN_DIR = Path(__file__).parent.absolute()
-    full_path = str(MAIN_DIR) + "/" + image_path
+    full_path = str(MAIN_DIR) + "/static/" + image_path
     return full_path
 
 def login(username: str, password: str):
