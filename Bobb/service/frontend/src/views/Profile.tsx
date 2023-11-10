@@ -52,8 +52,8 @@ export const Profile = () => {
   return (
     <div className="container m-auto flex flex-col my-6 gap-4">
       <div className="flex flex-col items-center">
+        <h2 className="font-semibold font-Jost text-4xl">Your Credit is</h2>
         <h1 className="font-semibold font-Jost text-8xl">{status.credit}</h1>
-        <h2 className="font-semibold font-Jost text-4xl">Credit</h2>
       </div>
       <h2 className="font-semibold font-Jost text-3xl">Your Coupons</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
