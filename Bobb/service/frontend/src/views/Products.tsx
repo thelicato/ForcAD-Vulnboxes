@@ -5,6 +5,7 @@ import toast from "react-hot-toast"
 
 export const Products = () => {
   const [products, setProducts] = useState<IProductWithImage[]>([])
+  const [modalContent, setModalContent] = useState<string>('');
 
   const getProducts = async () => {
     try {
@@ -34,8 +35,9 @@ export const Products = () => {
   const buy = async (productId: string) => {
     try {
       const res = await RESTManagerInstance.buy(productId);
+      setModalContent(`Product ${res.data.name}: ${res.data.value}`)
     } catch {
-
+      setModalContent("You don't have enough money to buy this product!")
     }
 
   }
@@ -65,11 +67,11 @@ export const Products = () => {
     {/** Dialog */}
     <dialog id="my_modal_2" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click outside to close</p>
+        <h3 className="font-bold text-lg">Purchase result</h3>
+        <p className="py-4">{modalContent}</p>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button>close</button>
+        <button>Close</button>
       </form>
     </dialog>
     </>
