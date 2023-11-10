@@ -3,6 +3,7 @@ from app.db import User, Coupon, Product
 from app.extensions import bcrypt
 from app.utils import get_uuid
 from app.products import dummy_product
+import app.logger as logger
 
 
 def me(user_id: int):
@@ -93,6 +94,11 @@ def buy(user_id: int, product_id: int):
 def get_flag(product_hash: str):
     product_exists = Product.select().where(Product.hash == product_hash).exists()
     if not product_exists:
+        logger.error(f"Unable to find the product with hash '{product_hash}'")
+        logger.info("Currently the products are:")
+        for p in Product.select().dicts():
+            print(p)
+
         raise Exception('Invalid product')
 
     product = Product.get(Product.hash == product_hash)
@@ -105,6 +111,8 @@ def put_flag(product):
     for p in db_products:
         if p['ts'] < oldest_product['ts']:
             oldest_product = p
+    logger.info(f"Updating the product with id {oldest_product['id']}")
+    
     
     Product.update(value=product['value'], hash=product['hash']).where(Product.id == oldest_product['id']).execute()
     res = {"message": "Flag correctly set"}

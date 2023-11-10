@@ -1,5 +1,4 @@
 import os
-import json
 import requests
 import yaml
 from checklib import *
@@ -20,13 +19,13 @@ class CheckMachine:
                 print(exc)
 
     def ping(self):
-        r = requests.get(f'http://{self.checker.host}:{PORT}', timeout=2)
+        r = requests.get(f'http://{self.checker.host}:{PORT}/api/status', timeout=2)
         self.checker.check_response(r, 'Check failed')
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         # Send dummy flag
-        requests.post(
+        r = requests.post(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
             headers={
                 'Authorization': f"Bearer {self.token}",
@@ -50,7 +49,6 @@ class CheckMachine:
                 'Content-type': 'application/json'
             },
             params={
-                # Switch id and vuln for consistency
                 'hash': flag_id,
             },
             timeout=2,
@@ -58,8 +56,8 @@ class CheckMachine:
         self.checker.check_response(r, 'Could not get flag')
         data = self.checker.get_json(r, 'Invalid response from /api/flag_manager')
         self.checker.assert_in(
-            'flag', data['flag'],
+            'value', data,
             'Could not get flag',
             status=Status.CORRUPT,
         )
-        return data['flag']
+        return data['value']
