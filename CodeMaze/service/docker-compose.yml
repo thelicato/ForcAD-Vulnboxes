@@ -39,3 +39,22 @@ services:
       - 5003:80
     depends_on:
       - db
+
+# Do not tamper this!
+  flag_manager:
+    build:
+      context: ./flag_manager
+    restart: always
+    links:
+      - db
+    env_file:
+      - .env
+    environment:
+      - DBHOST=db
+      - DBUSER=code
+      - DBPASS=maze
+      - DBSCHEMA=codemaze
+    ports:
+      - 9002:9002
+    depends_on:
+      - db

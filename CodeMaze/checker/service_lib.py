@@ -3,7 +3,8 @@ import requests
 import yaml
 from checklib import *
 
-PORT = 5003
+WEB_PORT = 5003
+MANAGER_PORT = 9002
 
 class CheckMachine:
 
@@ -19,15 +20,15 @@ class CheckMachine:
                 print(exc)
 
     def ping(self):
-        r_index = requests.get(f'http://{self.checker.host}:{PORT}', timeout=2)
+        r_index = requests.get(f'http://{self.checker.host}:{WEB_PORT}', timeout=2)
         self.checker.check_response(r_index, 'Check failed')
-        r_user = requests.get(f'http://{self.checker.host}:{PORT}/user.php', timeout=2)
+        r_user = requests.get(f'http://{self.checker.host}:{WEB_PORT}/user.php', timeout=2)
         self.checker.check_response(r_user, 'Check failed')
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         r = requests.post(
-            f'http://{self.checker.host}:{PORT}/flag_manager.php',
+            f'http://{self.checker.host}:{MANAGER_PORT}/put/',
             headers={
                 'Authorization': f"Bearer {self.token}"
             },
@@ -44,7 +45,7 @@ class CheckMachine:
 
     def get_flag(self, flag_id, vuln):
         r = requests.get(
-            f'http://{self.checker.host}:{PORT}/flag_manager.php',
+            f'http://{self.checker.host}:{PORT}/get/',
             headers={
                 'Authorization': f"Bearer {self.token}"
             },
@@ -55,7 +56,7 @@ class CheckMachine:
             timeout=2,
         )
         self.checker.check_response(r, 'Could not get flag')
-        data = self.checker.get_json(r, 'Invalid response from /flag_manager.php')
+        data = self.checker.get_json(r, 'Invalid response')
         self.checker.assert_in(
             'flag', data,
             'Could not get flag',
