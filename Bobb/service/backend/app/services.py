@@ -72,7 +72,7 @@ def redeem(user_id: int, coupon_id: str):
     return res
 
 
-def buy(user_id: int, product_id):
+def buy(user_id: int, product_id: int):
     product_exists = Product.select().where(Product.id == product_id).exists()
     if not product_exists:
         raise Exception('Invalid product')

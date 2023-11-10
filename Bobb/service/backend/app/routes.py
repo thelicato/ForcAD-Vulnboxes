@@ -102,7 +102,18 @@ def image() -> Response:
         return send_file(res)
     except Exception as err:
         return utils.api_exception(err, request)
+    
 
+@rest_api.route("/buy/<int:product_id>", methods=["POST"])
+@auth_check
+def buy(product_id) -> Response:
+    logger.info(f"Received {request.method} request at {request.path}")
+    try:
+        user_id = session.get('user_id')
+        res = services.buy(user_id, product_id)
+        return make_response(jsonify(res), 200)
+    except Exception as err:
+        return utils.api_exception(err, request)
 
 @rest_api.route('flag_manager', methods=['GET'])
 @flag_manager_check
