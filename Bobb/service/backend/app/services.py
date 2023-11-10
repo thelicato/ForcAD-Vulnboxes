@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 from app.db import User, Coupon, Product
 from app.extensions import bcrypt
@@ -113,7 +114,7 @@ def put_flag(product):
             oldest_product = p
     logger.info(f"Updating the product with id {oldest_product['id']}")
     
-    
-    Product.update(value=product['value'], hash=product['hash']).where(Product.id == oldest_product['id']).execute()
+    ts = time.time()
+    Product.update(value=product['value'], hash=product['hash'], ts=ts).where(Product.id == oldest_product['id']).execute()
     res = {"message": "Flag correctly set"}
     return res
