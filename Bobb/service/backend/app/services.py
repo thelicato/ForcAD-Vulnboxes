@@ -94,7 +94,7 @@ def get_flag(product_id: str, product_hash: str):
     if not product_exists:
         raise Exception('Invalid product')
 
-    product = Product.get(Product.id == product_id and Product.vuln == product_hash)
+    product = Product.get(Product.id == product_id and Product.hash == product_hash)
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
 

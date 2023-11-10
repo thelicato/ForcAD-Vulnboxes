@@ -18,6 +18,10 @@ export interface IProduct {
   price: number;
 }
 
+export interface IProductWithImage extends IProduct {
+  imageData: string;
+}
+
 export interface IProductReveal {
   id: string;
   name: string;

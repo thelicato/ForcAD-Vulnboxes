@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { http, cookieHttp } from '@/utils/axios';
+import { http, cookieHttp, imageHttp } from '@/utils/axios';
 import { API_CONFIG } from '@/config';
 import { IGenericRes, ILoginOrRegisterReq, IProductReveal, IProductsRes, IRedeemReq, IStatusRes } from '@/types';
 
@@ -16,6 +16,11 @@ class RESTManager {
 
   async products(): Promise<AxiosResponse<IProductsRes>> {
     const res = await http.get<IProductsRes>(API_CONFIG.PUBLIC_ROUTES.PRODUCTS);
+    return res;
+  }
+
+  async image(path: string): Promise<AxiosResponse> {
+    const res = await imageHttp.get(`${API_CONFIG.PUBLIC_ROUTES.IMAGE}/${path}`);
     return res;
   }
 

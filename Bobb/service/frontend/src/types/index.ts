@@ -1,2 +1,2 @@
 export type { IGenericRes, ILoginOrRegisterReq, IRedeemReq, IStatusRes, IProductsRes } from '@/types/IApi';
-export type { ICoupon, IUserStatus, IProduct, IProductReveal } from '@/types/ICommon';
+export type { ICoupon, IUserStatus, IProduct, IProductReveal, IProductWithImage } from '@/types/ICommon';

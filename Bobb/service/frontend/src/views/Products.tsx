@@ -1,18 +1,40 @@
-import { IProduct } from "@/types"
+import { IProduct, IProductWithImage } from "@/types"
 import { RESTManagerInstance } from "@/utils/rest"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 export const Products = () => {
-  const [products, setProducts] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProductWithImage[]>([])
 
   const getProducts = async () => {
     try {
       const res = await RESTManagerInstance.products();
-      setProducts(res.data.products)
+      setProducts(res.data.products.map((p: IProduct) => {
+        return {
+          ...p,
+          imageData: ''
+        }
+      }))
     } catch {
       toast.error("Error while loading products")
     }
+  }
+
+  const getImage = async (imagePath: string) => {
+    const res = RESTManagerInstance.image(imagePath)
+
+    Axios.get("http://localhost:4000/getAllPosts", {
+        responseType: "arraybuffer"
+      })
+      .then((res) => {
+      const base64 = btoa(
+        new Uint8Array(res.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      )
+      setImage(base64)
+    })
   }
 
   useEffect(() => {

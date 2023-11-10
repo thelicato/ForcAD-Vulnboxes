@@ -4,6 +4,7 @@ interface IApiConfig {
     LOGIN: string;
     REGISTER: string;
     PRODUCTS: string;
+    IMAGE: string;
   };
   PRIVATE_ROUTES: {
     STATUS: string;
@@ -19,6 +20,7 @@ export const API_CONFIG: IApiConfig = {
     LOGIN: '/login',
     REGISTER: '/register',
     PRODUCTS: '/products',
+    IMAGE: '/image',
   },
   PRIVATE_ROUTES: {
     STATUS: '/me',

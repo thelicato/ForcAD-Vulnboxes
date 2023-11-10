@@ -12,6 +12,11 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
+const imageInstance: AxiosInstance = axios.create({
+  baseURL: baseURL,
+  responseType: 'arraybuffer'  
+});
+
 const loggedInstance: AxiosInstance = axios.create({
   baseURL: baseURL,
   headers: {
@@ -22,4 +27,5 @@ const loggedInstance: AxiosInstance = axios.create({
 
 
 export const http = instance;
+export const imageHttp = imageInstance;
 export const cookieHttp = loggedInstance;
