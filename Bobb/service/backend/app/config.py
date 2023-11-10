@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-import os
 from app.utils import get_uuid
 
 load_dotenv()

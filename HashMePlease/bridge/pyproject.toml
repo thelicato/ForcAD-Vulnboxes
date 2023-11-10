@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "hashmeplease-bridge"
+version = "0.1.0"
+description = ""
+authors = ["Angelo Delicato <thelicato@duck.com>"]
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+flask = "^3.0.0"
+flask-cors = "^4.0.0"
+python-dotenv = "^1.0.0"
+pwntools = "^4.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+hashmeplease_bridge = 'app.main:main'
