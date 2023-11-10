@@ -2,7 +2,6 @@ import os
 import requests
 import yaml
 from checklib import *
-from pwn import *
 
 PORT = 5002
 
@@ -20,61 +19,51 @@ class CheckMachine:
                 print(exc)
 
     def ping(self):
-        try:
-            with context.quiet:
-                conn = remote(self.checker.host, PORT)
-                conn.recvuntil(b'>')
-                conn.close()
-        except Exception as e:
-            self.checker.cquit(status.Status.DOWN, str(e), "Unable to connect")
+        r_index = requests.get(
+            'http://hashmeplease_bridge:5000/bridge/status',
+            params={
+                'host': self.checker.host,
+                'port': PORT,
+            },
+            timeout=2
+        )
+        self.checker.check_response(r_index, 'Check failed')
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
-        try:
-            with context.quiet:
-                conn = remote(self.checker.host, PORT)
-                conn.recvuntil(b'>')
-                conn.sendline(b'2')
-                conn.recvuntil(b'>')
-                conn.sendline(b'2')
-                conn.recvuntil(b'Token:')
-                conn.sendline(self.token.encode('utf-8'))
-                conn.recvuntil(b'ID:')
-                conn.sendline(new_id.encode('utf-8'))
-                conn.recvuntil(b'Vuln:')
-                conn.sendline(vuln.encode('utf-8'))
-                conn.recvuntil(b'Value:')
-                conn.sendline(flag.encode('utf-8'))
-                received_text = conn.recvline().decode('utf-8').strip()
-                conn.close()
-            if not "Flag correctly set" in received_text:  
-                raise Exception('Unable to set flag')
-            return new_id
-        except Exception as e:
-            self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to set flag")
-        
+        r = requests.get(
+            'http://hashmeplease_bridge:5000/bridge/put_flag',
+            params={
+                'host': self.checker.host,
+                'port': PORT,
+                'token': self.token,
+                'id': new_id,
+                'vuln': vuln,
+                'flag': flag,
+            },
+            timeout=2,
+        )
+        self.checker.check_response(r, 'Could not put flag')
+
+        return new_id
 
     def get_flag(self, flag_id, vuln):
-        try:
-            with context.quiet:
-                conn = remote(self.checker.host, PORT)
-                conn.recvuntil(b'>')
-                conn.sendline(b'2')
-                conn.recvuntil(b'>')
-                conn.sendline(b'1')
-                conn.recvuntil(b'Token:')
-                conn.sendline(self.token.encode('utf-8'))
-                conn.recvuntil(b'ID:')
-                conn.sendline(flag_id.encode('utf-8'))
-                conn.recvuntil(b'Vuln:')
-                conn.sendline(vuln.encode('utf-8'))
-                received_text = conn.recvline().decode('utf-8').strip()
-                conn.close()
-                self.checker.assert_in(
-                    'flag', received_text,
-                    'Could not get flag',
-                    status=Status.CORRUPT,
-                )
-            return received_text
-        except Exception as e:
-            self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to get flag")
+        r = requests.get(
+            'http://hashmeplease_bridge:5000/bridge/get_flag',
+            params={
+                'host': self.checker.host,
+                'port': PORT,
+                'token': self.token,
+                'id': flag_id,
+                'vuln': vuln,
+            },
+            timeout=2,
+        )
+        self.checker.check_response(r, 'Could not get flag')
+        data = self.checker.get_json(r, 'Invalid response from bridge')
+        self.checker.assert_in(
+            'flag', data,
+            'Could not get flag',
+            status=Status.CORRUPT,
+        )
+        return data['flag']
