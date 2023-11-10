@@ -90,7 +90,7 @@ def buy(user_id: int, product_id: int):
     return res
 
 def get_flag(product_id: str, product_hash: str):
-    product_exists = Product.select().where(Product.id == product_id and Product.vuln == product_hash).exists()
+    product_exists = Product.select().where(Product.id == product_id and Product.hash == product_hash).exists()
     if not product_exists:
         raise Exception('Invalid product')
 
