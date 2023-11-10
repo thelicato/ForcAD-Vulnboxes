@@ -30,6 +30,6 @@ class Product(BaseModel):
     description = peewee.CharField()
     value = peewee.CharField()
     price = peewee.IntegerField()
-    image: peewee.CharField()
-    hash: peewee.CharField()
+    image = peewee.CharField()
+    hash = peewee.CharField()
     base = BaseModel()
