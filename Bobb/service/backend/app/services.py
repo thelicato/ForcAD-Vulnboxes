@@ -1,3 +1,4 @@
+from pathlib import Path
 from app.db import User, Coupon, Product
 from app.extensions import bcrypt
 from app.utils import get_uuid
@@ -27,6 +28,10 @@ def register(username: str, password: str):
     res = {"message": "User correctly created"}
     return res
 
+def image(image_path: str):
+    MAIN_DIR = Path(__file__).parent.absolute()
+    full_path = MAIN_DIR + "/" + image_path
+    return full_path
 
 def login(username: str, password: str):
     user_exists = User.select().where(User.username == username).exists()

@@ -3,7 +3,16 @@ name = "backend"
 version = "0.1.0"
 description = ""
 authors = ["Angelo Delicato <thelicato@duck.com>"]
-include = [{ path = "app/ui/**/*", format = ["sdist", "wheel"] }]
+include = [
+  { path = "app/ui/**/*", format = [
+    "sdist",
+    "wheel",
+  ] },
+  { path = "app/static/**/*", format = [
+    "sdist",
+    "wheel",
+  ] },
+]
 packages = [{ include = "app" }]
 
 [tool.poetry.dependencies]

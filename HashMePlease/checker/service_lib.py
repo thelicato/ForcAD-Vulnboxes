@@ -21,30 +21,32 @@ class CheckMachine:
 
     def ping(self):
         try:
-            conn = remote(self.checker.host, PORT)
-            conn.recvuntil(b'>')
-            conn.close()
+            with context.quiet:
+                conn = remote(self.checker.host, PORT)
+                conn.recvuntil(b'>')
+                conn.close()
         except Exception as e:
             self.checker.cquit(status.Status.DOWN, str(e), "Unable to connect")
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
         try:
-            conn = remote(self.checker.host, PORT)
-            conn.recvuntil(b'>')
-            conn.sendline(b'2')
-            conn.recvuntil(b'>')
-            conn.sendline(b'2')
-            conn.recvuntil(b'Token:')
-            conn.sendline(self.token.encode('utf-8'))
-            conn.recvuntil(b'ID:')
-            conn.sendline(new_id.encode('utf-8'))
-            conn.recvuntil(b'Vuln:')
-            conn.sendline(vuln.encode('utf-8'))
-            conn.recvuntil(b'Value:')
-            conn.sendline(flag.encode('utf-8'))
-            received_text = conn.recvline().decode('utf-8').strip()
-            conn.close()
+            with context.quiet:
+                conn = remote(self.checker.host, PORT)
+                conn.recvuntil(b'>')
+                conn.sendline(b'2')
+                conn.recvuntil(b'>')
+                conn.sendline(b'2')
+                conn.recvuntil(b'Token:')
+                conn.sendline(self.token.encode('utf-8'))
+                conn.recvuntil(b'ID:')
+                conn.sendline(new_id.encode('utf-8'))
+                conn.recvuntil(b'Vuln:')
+                conn.sendline(vuln.encode('utf-8'))
+                conn.recvuntil(b'Value:')
+                conn.sendline(flag.encode('utf-8'))
+                received_text = conn.recvline().decode('utf-8').strip()
+                conn.close()
             if not "Flag correctly set" in received_text:  
                 raise Exception('Unable to set flag')
             return new_id
@@ -54,24 +56,25 @@ class CheckMachine:
 
     def get_flag(self, flag_id, vuln):
         try:
-            conn = remote(self.checker.host, PORT)
-            conn.recvuntil(b'>')
-            conn.sendline(b'2')
-            conn.recvuntil(b'>')
-            conn.sendline(b'1')
-            conn.recvuntil(b'Token:')
-            conn.sendline(self.token.encode('utf-8'))
-            conn.recvuntil(b'ID:')
-            conn.sendline(flag_id.encode('utf-8'))
-            conn.recvuntil(b'Vuln:')
-            conn.sendline(vuln.encode('utf-8'))
-            received_text = conn.recvline().decode('utf-8').strip()
-            conn.close()
-            self.checker.assert_in(
-                'flag', received_text,
-                'Could not get flag',
-                status=Status.CORRUPT,
-            )
+            with context.quiet:
+                conn = remote(self.checker.host, PORT)
+                conn.recvuntil(b'>')
+                conn.sendline(b'2')
+                conn.recvuntil(b'>')
+                conn.sendline(b'1')
+                conn.recvuntil(b'Token:')
+                conn.sendline(self.token.encode('utf-8'))
+                conn.recvuntil(b'ID:')
+                conn.sendline(flag_id.encode('utf-8'))
+                conn.recvuntil(b'Vuln:')
+                conn.sendline(vuln.encode('utf-8'))
+                received_text = conn.recvline().decode('utf-8').strip()
+                conn.close()
+                self.checker.assert_in(
+                    'flag', received_text,
+                    'Could not get flag',
+                    status=Status.CORRUPT,
+                )
             return received_text
         except Exception as e:
             self.checker.cquit(status.Status.CORRUPT, str(e), "Unable to get flag")

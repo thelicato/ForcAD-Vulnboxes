@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, request, session, Response
+from flask import Blueprint, jsonify, make_response, request, session, Response, send_file
 from app.middlewares import auth_check, validate_json, validate_schema, flag_manager_check
 from app.schema import login_or_register_schema, redeem_schema, put_flag_schema
 import app.logger as logger
@@ -93,13 +93,13 @@ def products() -> Response:
     except Exception as err:
         return utils.api_exception(err, request)
     
-@rest_api.route("/asset", methods=["GET"])
-def asset() -> Response:
+@rest_api.route("/image", methods=["GET"])
+def image() -> Response:
     logger.info(f"Received {request.method} request at {request.path}")
     try:
-        asset_path = request.args.get('path')
-        res = services.asset(asset_path)
-        return make_response(jsonify(res), 200)
+        image_path = request.args.get('path')
+        res = services.image(image_path)
+        return send_file(res)
     except Exception as err:
         return utils.api_exception(err, request)
 

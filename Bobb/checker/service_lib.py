@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 import yaml
 from checklib import *
@@ -12,28 +13,27 @@ dummy_product = {
     "name": "Flag",
     "description": "This is the flag you were looking for!",
     "price": 10,
-    "image": "link",
-},
+    "image": "flag.png",
+}
 
 products = [
-
     {
         "name": "Pizza Pomodorino",
-        "description": "This is the flag you were looking for!",
+        "description": "La pizza che più ci rappresenta,la nostra POMODORINO. In questa pizza abbiamo racchiuso le nostre origini e la nostra idea di SEMPLICITÀ E BONTÀ. ASSAPORALA AD OCCHI CHIUSI",
         "price": 50,
-        "image": "link",
+        "image": "pomodorino.jpg",
     },
         {
-        "name": "Pizza Y",
-        "description": "This is the flag you were looking for!",
+        "name": "Pizza Friarielli",
+        "description": "Concediti un momento di vero godimento con la nostra #pizzanelruoto SALSICCIA E FRIARIELLI",
         "price": 60,
-        "image": "link",
+        "image": "friarielli.jpg",
     },
         {
-        "name": "Pizza Z",
-        "description": "This is the flag you were looking for!",
+        "name": "Pizza Patata",
+        "description": "ALL YOU NEED IS LOVE, ALL YOU NEED IS BOBB. Ti aspettiamo domani per festeggiare la nostra grande storia d’amore",
         "price": 70,
-        "image": "link",
+        "image": "patata.jpg",
     },
 ]
 
@@ -56,7 +56,7 @@ class CheckMachine:
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
-        current_product = products[vuln]        
+        current_product = products[int(vuln)]        
         # Switch id and vuln for consistency
         current_product["id"] = vuln
         current_product["hash"] = new_id
@@ -65,7 +65,8 @@ class CheckMachine:
         requests.post(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
             headers={
-                'Authorization': f"Bearer {self.token}"
+                'Authorization': f"Bearer {self.token}",
+                'Content-type': 'application/json'
             },
             json=dummy_product,
             timeout=2,
@@ -86,7 +87,8 @@ class CheckMachine:
         r = requests.get(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
             headers={
-                'Authorization': f"Bearer {self.token}"
+                'Authorization': f"Bearer {self.token}",
+                'Content-type': 'application/json'
             },
             params={
                 # Switch id and vuln for consistency
