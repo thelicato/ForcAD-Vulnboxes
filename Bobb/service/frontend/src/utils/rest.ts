@@ -40,7 +40,7 @@ class RESTManager {
   }
 
   async buy(productId: string): Promise<AxiosResponse<IProductReveal>> {
-    const res = await cookieHttp.post<IProductReveal>(`${API_CONFIG.PRIVATE_ROUTES.BUY}/${productId}`);
+    const res = await cookieHttp.post<IProductReveal>(`${API_CONFIG.PRIVATE_ROUTES.BUY}?path=${productId}`);
     return res;
   }
 }
