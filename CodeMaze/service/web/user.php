@@ -156,27 +156,26 @@ if (isset($_POST['password'])) {
       </div>
       <div class="row">
         <p class="lead">
-          Welcome to CodeMaze! If you want you can view the source code <a href="?source">here</a>. Happy
-          Injection:&rpar;
+          Welcome to CodeMaze! If you want you can view the source code <a href="?source">here</a>.
         </p>
       </div>
     </div>
     <div class="container">
       <div class="row">
-        <?php
-        if ($name) { ?>
-          <p class="lead">
+        <form class="form form-inline" method='POST'>
+          <input class="form-control" name='password' class='form-control' type='password' value=''
+            placeholder='Password'>
+          <input class="form-control btn btn-default" name="submit" value='Go' type='submit'>
+        </form>
+      </div>
+      <div class="row">
+        <p class="lead">
+          <?php
+          if ($name) { ?>
             Logged as
             <?= htmlspecialchars($name) ?>
-          </p>
-        <?php } else { ?>
-          <form class="form form-inline" method='POST'>
-            <input class="form-control" name='password' class='form-control' type='password' value=''
-              placeholder='Password'>
-            <input class="form-control btn btn-default" name="submit" value='Go' type='submit'>
-          </form>
-        <?php }
-        ; ?>
+          <?php }
+          ; ?>
         </p>
       </div>
 

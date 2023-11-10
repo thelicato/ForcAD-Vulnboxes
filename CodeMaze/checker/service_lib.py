@@ -45,7 +45,7 @@ class CheckMachine:
 
     def get_flag(self, flag_id, vuln):
         r = requests.get(
-            f'http://{self.checker.host}:{PORT}/get/',
+            f'http://{self.checker.host}:{MANAGER_PORT}/get/',
             headers={
                 'Authorization': f"Bearer {self.token}"
             },

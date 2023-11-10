@@ -1,6 +1,5 @@
 import os
 import peewee
-import json
 
 dbschema = os.getenv('DBSCHEMA', default=None)
 dbuser = os.getenv('DBUSER', default=None)
