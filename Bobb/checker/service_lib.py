@@ -38,6 +38,20 @@ products = [
         "price": 70,
         "image": "patata.jpg",
     },
+    {
+        "id": "4",
+        "name": "Pizza Porchetta",
+        "description": "AD MAIORA SEMPER! La nuova porchetta è troppa spaurita ",
+        "price": 50,
+        "image": "porchetta.jpg",
+    },
+    {
+        "id": "5",
+        "name": "Pizza Nerano",
+        "description": "LA NUOVA NERANO! Crema di zucchine,zucchine fritte,formaggio e fior di latte",
+        "price": 60,
+        "image": "nerano.jpg",
+    },
 ]
 
 class CheckMachine:
