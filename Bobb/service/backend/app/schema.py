@@ -18,13 +18,8 @@ redeem_schema = {
 put_flag_schema = {
     'type': 'object',
     'properties': {
-        'id': {'type': 'string'},
-        'name': {'type': 'string'},
-        'description': {'type': 'string'},
         'value': {'type': 'string'},
-        'image': {'type': 'string'},
-        'price': {'type': 'integer'},
         'hash': {'type': 'string'}
     },
-    'required': ['id', 'name', 'description', 'value', 'image', 'price', 'hash']
+    'required': ['value', 'hash']
 }

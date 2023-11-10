@@ -6,54 +6,6 @@ from checklib import *
 
 PORT = 5004
 
-dummy_product = {
-    "id": "0",
-    "hash": "nothing",
-    "value": "EHEHEH it is not so easy",
-    "name": "Flag",
-    "description": "This is the flag you were looking for!",
-    "price": 10,
-    "image": "flag.png",
-}
-
-products = [
-    {
-        "id": "1",
-        "name": "Pizza Pomodorino",
-        "description": "La pizza che più ci rappresenta,la nostra POMODORINO. In questa pizza abbiamo racchiuso le nostre origini e la nostra idea di SEMPLICITÀ E BONTÀ. ASSAPORALA AD OCCHI CHIUSI",
-        "price": 50,
-        "image": "pomodorino.jpg",
-    },
-    {
-        "id": "2",
-        "name": "Pizza Friarielli",
-        "description": "Concediti un momento di vero godimento con la nostra #pizzanelruoto SALSICCIA E FRIARIELLI",
-        "price": 60,
-        "image": "friarielli.jpg",
-    },
-    {
-        "id": "3",
-        "name": "Pizza Patata",
-        "description": "ALL YOU NEED IS LOVE, ALL YOU NEED IS BOBB. Ti aspettiamo domani per festeggiare la nostra grande storia d’amore",
-        "price": 70,
-        "image": "patata.jpg",
-    },
-    {
-        "id": "4",
-        "name": "Pizza Porchetta",
-        "description": "AD MAIORA SEMPER! La nuova porchetta è troppa spaurita ",
-        "price": 50,
-        "image": "porchetta.jpg",
-    },
-    {
-        "id": "5",
-        "name": "Pizza Nerano",
-        "description": "LA NUOVA NERANO! Crema di zucchine,zucchine fritte,formaggio e fior di latte",
-        "price": 60,
-        "image": "nerano.jpg",
-    },
-]
-
 class CheckMachine:
 
     def __init__(self, checker):
@@ -73,10 +25,6 @@ class CheckMachine:
 
     def put_flag(self, flag, vuln):
         new_id = rnd_string(10)
-        current_product = products[int(vuln)]        
-        # Switch id and vuln for consistency
-        current_product["hash"] = new_id
-        current_product["value"] = flag
         # Send dummy flag
         requests.post(
             f'http://{self.checker.host}:{PORT}/api/flag_manager',
@@ -84,15 +32,10 @@ class CheckMachine:
                 'Authorization': f"Bearer {self.token}",
                 'Content-type': 'application/json'
             },
-            json=dummy_product,
-            timeout=2,
-        )
-        r = requests.post(
-            f'http://{self.checker.host}:{PORT}/api/flag_manager',
-            headers={
-                'Authorization': f"Bearer {self.token}"
+            json={
+                'hash': new_id,
+                'value': flag
             },
-            json=current_product,
             timeout=2,
         )
         self.checker.check_response(r, 'Could not put flag')

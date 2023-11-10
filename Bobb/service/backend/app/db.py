@@ -32,4 +32,5 @@ class Product(BaseModel):
     price = peewee.IntegerField()
     image = peewee.CharField()
     hash = peewee.CharField()
+    ts = peewee.FloatField()
     base = BaseModel()

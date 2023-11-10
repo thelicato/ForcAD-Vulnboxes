@@ -2,6 +2,7 @@ from pathlib import Path
 from app.db import User, Coupon, Product
 from app.extensions import bcrypt
 from app.utils import get_uuid
+from app.products import dummy_product
 
 
 def me(user_id: int):
@@ -99,11 +100,12 @@ def get_flag(product_hash: str):
     return res
 
 def put_flag(product):
-    product_exists = Product.select().where(Product.id == product['id']).exists()
-    if not product_exists:
-        Product.create(id=product['id'], name=product['name'], description=product['description'], value=product['value'], price=product['price'], image=product['image'], hash=product['hash'])
-    else:
-        Product.update(value=product['value'], hash=product['hash']).where(Product.id == product['id']).execute()
-
+    db_products = Product.select().where(Product.id != dummy_product['id']).dicts()
+    oldest_product = db_products[0]
+    for p in db_products:
+        if p['ts'] < oldest_product['ts']:
+            oldest_product = p
+    
+    Product.update(value=product['value'], hash=product['hash']).where(Product.id == oldest_product['id']).execute()
     res = {"message": "Flag correctly set"}
     return res

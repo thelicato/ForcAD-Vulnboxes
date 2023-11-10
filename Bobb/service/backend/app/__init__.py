@@ -27,6 +27,9 @@ def create_app(debug: bool = False):
     database.connect()
     database.create_tables([User, Coupon, Product])
 
+    from app.products import init_products
+    init_products()
+
     # Register blueprints or routes
     from app.routes import rest_api
 
