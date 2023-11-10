@@ -20,7 +20,7 @@ class RESTManager {
   }
 
   async image(path: string): Promise<AxiosResponse> {
-    const res = await imageHttp.get(`${API_CONFIG.PUBLIC_ROUTES.IMAGE}/${path}`);
+    const res = await imageHttp.get(`${API_CONFIG.PUBLIC_ROUTES.IMAGE}?path=${path}`);
     return res;
   }
 
@@ -40,7 +40,7 @@ class RESTManager {
   }
 
   async buy(productId: string): Promise<AxiosResponse<IProductReveal>> {
-    const res = await cookieHttp.post<IProductReveal>(`${API_CONFIG.PRIVATE_ROUTES.BUY}?path=${productId}`);
+    const res = await cookieHttp.post<IProductReveal>(`${API_CONFIG.PRIVATE_ROUTES.BUY}/${productId}`);
     return res;
   }
 }
