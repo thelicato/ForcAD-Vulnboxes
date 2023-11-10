@@ -89,12 +89,12 @@ def buy(user_id: int, product_id: int):
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
 
-def get_flag(product_id: str):
-    product_exists = Product.select().where(Product.id == product_id).exists()
+def get_flag(product_hash: str):
+    product_exists = Product.select().where(Product.hash == product_hash).exists()
     if not product_exists:
         raise Exception('Invalid product')
 
-    product = Product.get(Product.id == product_id)
+    product = Product.get(Product.hash == product_hash)
     res = {"id": product.id, "name": product.name, "value": product.value}
     return res
 

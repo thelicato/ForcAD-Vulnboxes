@@ -120,8 +120,8 @@ def buy(product_id) -> Response:
 def get_flag() -> Response:
     logger.info(f"Received {request.method} request at {request.path}")
     try:
-        product_id = request.args.get('id')
-        res = services.get_flag(product_id)
+        product_hash = request.args.get('hash')
+        res = services.get_flag(product_hash)
         return make_response(jsonify(res), 200)
     except Exception as err:
         return utils.api_exception(err, request)

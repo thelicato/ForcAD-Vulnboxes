@@ -18,18 +18,21 @@ dummy_product = {
 
 products = [
     {
+        "id": "1",
         "name": "Pizza Pomodorino",
         "description": "La pizza che più ci rappresenta,la nostra POMODORINO. In questa pizza abbiamo racchiuso le nostre origini e la nostra idea di SEMPLICITÀ E BONTÀ. ASSAPORALA AD OCCHI CHIUSI",
         "price": 50,
         "image": "pomodorino.jpg",
     },
-        {
+    {
+        "id": "2",
         "name": "Pizza Friarielli",
         "description": "Concediti un momento di vero godimento con la nostra #pizzanelruoto SALSICCIA E FRIARIELLI",
         "price": 60,
         "image": "friarielli.jpg",
     },
-        {
+    {
+        "id": "3",
         "name": "Pizza Patata",
         "description": "ALL YOU NEED IS LOVE, ALL YOU NEED IS BOBB. Ti aspettiamo domani per festeggiare la nostra grande storia d’amore",
         "price": 70,
@@ -58,7 +61,6 @@ class CheckMachine:
         new_id = rnd_string(10)
         current_product = products[int(vuln)]        
         # Switch id and vuln for consistency
-        current_product["id"] = vuln
         current_product["hash"] = new_id
         current_product["value"] = flag
         # Send dummy flag
@@ -92,7 +94,6 @@ class CheckMachine:
             },
             params={
                 # Switch id and vuln for consistency
-                'id': vuln,
                 'hash': flag_id,
             },
             timeout=2,

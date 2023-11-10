@@ -1,6 +1,6 @@
 import { IProduct, IProductWithImage } from "@/types"
 import { RESTManagerInstance } from "@/utils/rest"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Buffer } from 'buffer';
 import toast from "react-hot-toast"
 import { sleep } from "@/utils/helpers";
@@ -10,6 +10,7 @@ export const Products = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProductWithImage[]>([])
   const [modalContent, setModalContent] = useState<string>('');
+  const modalRef = useRef<any>()
 
   const getProducts = async () => {
     try {
@@ -52,6 +53,8 @@ export const Products = () => {
     } catch {
       setModalContent("You don't have enough money to buy this product!")
     }
+    //@ts-ignore
+    modalRef.showModal()
   }
 
   if (isLoading) {
@@ -81,7 +84,7 @@ export const Products = () => {
       </div>
     </div>
     {/** Dialog */}
-    <dialog id="my_modal_2" className="modal">
+    <dialog ref={modalRef} className="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Purchase result</h3>
         <p className="py-4">{modalContent}</p>
