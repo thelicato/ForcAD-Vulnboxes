@@ -26,7 +26,7 @@ def get_flag() -> Response:
         host = request.args.get('host')
         port = request.args.get('port')
         token = request.args.get('token')
-        flag_id = request.args.get('flag_id')
+        flag_id = request.args.get('id')
         vuln = request.args.get('vuln')
         
         res = netcat.get_flag(host, port, token, flag_id, vuln)
@@ -42,7 +42,7 @@ def put_flag() -> Response:
         host = request.args.get('host')
         port = request.args.get('port')
         token = request.args.get('token')
-        flag_id = request.args.get('flag_id')
+        flag_id = request.args.get('id')
         flag = request.args.get('flag')
         vuln = request.args.get('vuln')
         
